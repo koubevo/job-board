@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Job;
 use App\Models\Offer;
 use Illuminate\Http\Request;
 
@@ -21,7 +20,7 @@ class OfferController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -35,9 +34,9 @@ class OfferController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Offer $job)
     {
-        //
+        return view('job.show', compact('job'));
     }
 
     /**
