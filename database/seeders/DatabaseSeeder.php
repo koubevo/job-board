@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Employer;
 use App\Models\Job;
 use App\Models\Offer;
 use App\Models\User;
@@ -24,6 +25,22 @@ class DatabaseSeeder extends Seeder
         ]);
         */
 
-        Offer::factory(100)->create();
+        $users = User::factory(300)->create();
+
+        $users = User::all()->shuffle();
+
+        for ($i = 0; $i < 20; $i++) {
+            Employer::factory()->create([
+                'user_id' => $users->pop()->id
+            ]);
+        }
+
+        $employers = Employer::all();
+
+        for ($i = 0; $i < 100; $i++) {
+            Offer::factory()->create([
+                'employer_id' => $employers->random()->id
+            ]);
+        }
     }
 }
