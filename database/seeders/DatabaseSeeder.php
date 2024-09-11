@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Employer;
 use App\Models\Job;
+use App\Models\JobApplication;
 use App\Models\Offer;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -37,6 +38,17 @@ class DatabaseSeeder extends Seeder
             Offer::factory()->create([
                 'employer_id' => $employers->random()->id
             ]);
+        }
+
+        foreach ($users as $user) {
+            $jobs = Offer::inRandomOrder()->take(rand(0, 4))->get();
+
+            foreach ($jobs as $job) {
+                JobApplication::factory()->create([
+                    'offer_id' => $job->id,
+                    'user_id' => $user->id
+                ]);
+            }
         }
     }
 }
