@@ -68,6 +68,7 @@ class OfferPolicy
 
     public function apply(User $user, Offer $job): bool
     {
-        return false;
+        return !$job->hasUserApplied($user);
+
     }
 }

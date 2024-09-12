@@ -2,7 +2,14 @@
     <x-breadcrumbs class="mb-4 ps-1" :links="['Jobs' => route('jobs.index'), $job->title => '#']"></x-breadcrumbs>
     <x-job-card :$job >
         <p class="text-sm text-slate-500 mb-4">{!! nl2br(e($job->description)) !!}</p>
+        @can('apply', $job)
         <x-link-button :href="route('job.application.create', $job)">Apply</x-link-button>
+        @else
+        <div class="text-sm font-medium text-slate-500">
+            You have already applied for this job.
+        </div>
+        @endcan
+        
     </x-job-card>
     <x-card class="mb-4">
         <h2 class="mb-4 text-lg font-medium">Other Jobs by {{ $job->employer->company_name }}</h2>

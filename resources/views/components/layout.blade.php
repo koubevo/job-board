@@ -18,7 +18,9 @@
             <ul class="flex space-x-2">
                 @auth
                 <li >
-                   {{ auth()->user()->name ?? 'Anonymous'}}
+                   <a href="{{ route('my-job-applications.index') }}">
+                    {{ auth()->user()->name ?? 'Anonymous'}}: Applications
+                   </a>
                 </li>
                 <span class="mx-2">|</span>
                 <li>
@@ -39,6 +41,12 @@
             <div class="my-8 rounded-md border-l-4 border-green-900 bg-green-100 p-4 text-green-900 opacity-75" role="alert">
            <p class="font-bold">Success!</p>
            <p>{{ session('success') }}</p>   
+            </div>            
+        @endif
+        @if (session('error'))
+            <div class="my-8 rounded-md border-l-4 border-red-900 bg-red-100 p-4 text-red-900 opacity-75" role="alert">
+           <p class="font-bold">Error!</p>
+           <p>{{ session('error') }}</p>   
             </div>            
         @endif
         {{ $slot }}
