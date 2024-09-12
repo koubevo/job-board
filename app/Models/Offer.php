@@ -14,6 +14,8 @@ class Offer extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['title', 'location', 'salary', 'experience', 'description', 'category'];
+
     public static array $experience = ['entry', 'intermediate', 'senior'];
     public static array $category = ['IT', 'Finance', 'Sales', 'Marketing'];
 
@@ -46,6 +48,7 @@ class Offer extends Model
     {
         return $this->hasMany(JobApplication::class);
     }
+
 
     public function hasUserApplied(Authenticate|User|int $user): bool
     {

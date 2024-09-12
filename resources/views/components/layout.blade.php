@@ -13,6 +13,9 @@
             <ul class="flex space-x-2">  
                 <li>
                     <a href="{{ route('jobs.index') }}">Home</a>
+                </li>    
+                <li>
+                    <a href="{{ route('my-jobs.index') }}">My offers</a>
                 </li>      
             </ul>
             <ul class="flex space-x-2">
