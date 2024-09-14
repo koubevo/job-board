@@ -9,6 +9,9 @@
             <div class="flex space-x-4">
                 <div>{{ $job->employer->company_name }}</div>
                 <div>{{ $job->location }}</div>
+                @if ($job->deleted_at)
+                    <span class="text-xs text-red-500">Deleted</span>
+                @endif
             </div>
             <div class="flex space-x-1 text-xs">
                 <x-tag><a href="{{ route('jobs.index', ['experience' => $job->experience])}}">{{ Str::ucfirst($job->experience) }}</a></x-tag>

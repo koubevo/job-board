@@ -16,7 +16,8 @@ return new class extends Migration {
             $table->id();
 
             $table->foreignIdFor(User::class)->constrained();
-            $table->foreignIdFor(Offer::class)->constrained();
+            $table->foreignIdFor(Offer::class)->constrained()
+                ->onDelete('cascade');
 
             $table->unsignedInteger('expected_salary');
 

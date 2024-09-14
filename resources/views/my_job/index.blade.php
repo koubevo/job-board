@@ -19,6 +19,16 @@
             @empty
                 <div>No Applications</div>
             @endforelse
+
+            <div class="flex space-x-2 mt-4">
+                <x-link-button href="{{ route('my-jobs.edit', $job)}}">Edit</x-link-button>
+
+                <form action="{{ route('my-jobs.destroy', $job) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <x-button>Delete</x-button>
+                </form>
+            </div>
         </div>
      </x-job-card>    
      @empty

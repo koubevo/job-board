@@ -18,6 +18,11 @@ class OfferPolicy
         return true;
     }
 
+    public function viewAnyEmployer(User $user): bool
+    {
+        return true;
+    }
+
     /**
      * Determine whether the user can view the model.
      */
@@ -31,14 +36,22 @@ class OfferPolicy
      */
     public function create(User $user): bool
     {
-        return false;
+        return $user->employer != null;
     }
 
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Offer $offer): bool
+    public function update(User $user, Offer $offer): bool|Response
     {
+        if ($offer->jobApplications->count() > 0) {
+            return Response::deny('Cannot change the job with applicants.');
+        }
+
+        if ($offer->employer->user_id === $user->id) {
+            return true;
+        }
+
         return false;
     }
 
@@ -47,7 +60,7 @@ class OfferPolicy
      */
     public function delete(User $user, Offer $offer): bool
     {
-        return false;
+        return $offer->employer->user_id === $user->id;
     }
 
     /**
@@ -55,7 +68,7 @@ class OfferPolicy
      */
     public function restore(User $user, Offer $offer): bool
     {
-        return false;
+        return $offer->employer->user_id === $user->id;
     }
 
     /**
@@ -63,7 +76,7 @@ class OfferPolicy
      */
     public function forceDelete(User $user, Offer $offer): bool
     {
-        return false;
+        return $offer->employer->user_id === $user->id;
     }
 
     public function apply(User $user, Offer $job): bool
